@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rose Day Proposal 💘</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            font-family: 'Arial', cursive;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+        }
+
+        .rose {
+            font-size: 8rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .rose:hover {
+            transform: scale(1.1);
+        }
+
+        .message {
+            display: none;
+            position: absolute;
+            top: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ff0066;
+            font-size: 2rem;
+            white-space: nowrap;
+        }
+
+        .hearts {
+            position: fixed;
+            pointer-events: none;
+            animation: hearts 3s linear infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes hearts {
+            0% { 
+                opacity: 0;
+                transform: translateY(0) rotate(45deg);
+            }
+            20% { opacity: 1; }
+            100% { 
+                opacity: 0;
+                transform: translateY(-100vh) rotate(45deg);
+            }
+        }
+
+        .proposal-text {
+            color: #fff;
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            line-height: 1.6;
+            max-width: 600px;
+            display: none;
+        }
+
+        button {
+            background: #ff0066;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="rose" onclick="revealMessage()">🌹</div>
+        <div class="message" id="message">A Single Rose for My Forever Valentine 💖</div>
+        <div class="proposal-text" id="proposalText">
+            <p>Like this rose, my love for you grows more beautiful with each passing day...</p>
+            <p>Will you let me be your<br>
+            Valentine today, tomorrow,<br>
+            and all the days to come? 💞</p>
+            <button onclick="acceptProposal()">Yes, Forever! 💍</button>
+        </div>
+    </div>
+
+    <script>
+        function revealMessage() {
+            const rose = document.querySelector('.rose');
+            const message = document.getElementById('message');
+            const proposalText = document.getElementById('proposalText');
+            
+            // Animate rose
+            rose.style.animation = 'none';
+            rose.offsetHeight; // Trigger reflow
+            rose.style.animation = 'float 1.5s ease-in-out infinite';
+            
+            // Show messages
+            message.style.display = 'block';
+            setTimeout(() => proposalText.style.display = 'block', 1000);
+            
+            // Create floating hearts
+            setInterval(createHearts, 300);
+        }
+
+        function createHearts() {
+            const heart = document.createElement('div');
+            heart.className = 'hearts';
+            heart.innerHTML = '💖';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animation = `hearts ${Math.random() * 3 + 2}s linear`;
+            document.body.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        function acceptProposal() {
+            const container = document.querySelector('.container');
+            container.innerHTML = `
+                <h1 style="color: #ff0066; font-size: 3rem;">
+                    💝 Happiest Valentine's My Love! 💝<br>
+                    Let's Make Forever Memories Together! 💑
+                </h1>
+            `;
+            // Add fireworks effect
+            setInterval(() => {
+                const firework = document.createElement('div');
+                firework.style.position = 'fixed';
+                firework.style.left = Math.random() * 100 + 'vw';
+                firework.style.top = Math.random() * 100 + 'vh';
+                firework.innerHTML = ['🎆','🎇','💥','✨'][Math.floor(Math.random()*4)];
+                firework.style.fontSize = Math.random() * 30 + 20 + 'px';
+                document.body.appendChild(firework);
+                setTimeout(() => firework.remove(), 1000);
+            }, 100);
+        }
+    </script>
+</body>
+</html>
